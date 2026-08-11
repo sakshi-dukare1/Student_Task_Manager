@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Student Task Manager dashboard for organizing tasks, assignments, exams, and deadlines."
+    />
+    <title>Student Task Manager</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block" aria-label="Student Task Manager brand">
+          <div class="brand-badge" aria-hidden="true">ST</div>
+          <div class="brand-copy">
+            <h1>Student Task Manager</h1>
+            <p>Organize your studies, stay on track.</p>
+          </div>
+        </div>
+
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Toggle dark mode"
+        >
+          <span aria-hidden="true">🌙</span>
+          <span id="theme-toggle-label">Dark Mode</span>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <section class="stats-grid" aria-label="Task dashboard statistics">
+          <article class="stat-card">
+            <p class="stat-label">Total Tasks</p>
+            <h2 id="total-count" class="stat-number">0</h2>
+          </article>
+
+          <article class="stat-card success-card">
+            <p class="stat-label">Completed Tasks</p>
+            <h2 id="completed-count" class="stat-number">0</h2>
+          </article>
+
+          <article class="stat-card warning-card">
+            <p class="stat-label">Pending Tasks</p>
+            <h2 id="pending-count" class="stat-number">0</h2>
+          </article>
+
+          <article class="stat-card danger-card">
+            <p class="stat-label">Overdue Tasks</p>
+            <h2 id="overdue-count" class="stat-number">0</h2>
+          </article>
+        </section>
+
+        <section class="task-panel">
+          <div class="panel form-panel">
+            <div class="panel-header">
+              <h2 id="form-title">Add New Task</h2>
+            </div>
+
+            <form id="task-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="task-title">Task Title</label>
+                  <input
+                    id="task-title"
+                    name="title"
+                    type="text"
+                    maxlength="100"
+                    placeholder="e.g. Complete Java assignment"
+                    required
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="task-subject">Subject</label>
+                  <input
+                    id="task-subject"
+                    name="subject"
+                    type="text"
+                    maxlength="80"
+                    placeholder="e.g. Java"
+                    required
+                  />
+                </div>
+
+                <div class="field field-full">
+                  <label for="task-description">Description</label>
+                  <textarea
+                    id="task-description"
+                    name="description"
+                    rows="3"
+                    maxlength="300"
+                    placeholder="Add details about this task"
+                  ></textarea>
+                </div>
+
+                <div class="field">
+                  <label for="task-date">Due Date</label>
+                  <input
+                    id="task-date"
+                    name="dueDate"
+                    type="date"
+                    required
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="task-priority">Priority</label>
+                  <select id="task-priority" name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="task-category">Category</label>
+                  <select id="task-category" name="category">
+                    <option value="Assignment" selected>Assignment</option>
+                    <option value="Exam">Exam</option>
+                    <option value="Project">Project</option>
+                    <option value="Study">Study</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="form-message" class="form-message" role="alert" aria-live="polite"></div>
+
+              <div class="form-actions">
+                <button id="submit-btn" type="submit" class="primary-btn">Add Task</button>
+                <button id="cancel-edit" type="button" class="secondary-btn hidden">Cancel Edit</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel list-panel">
+            <div class="toolbar">
+              <div class="search-wrap">
+                <label class="sr-only" for="search-input">Search tasks</label>
+                <input
+                  id="search-input"
+                  type="search"
+                  placeholder="Search tasks..."
+                  aria-label="Search tasks"
+                />
+              </div>
+
+              <div class="filter-grid">
+                <div class="filter-item">
+                  <label for="status-filter">Status</label>
+                  <select id="status-filter" aria-label="Filter by status">
+                    <option value="All" selected>All</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Overdue">Overdue</option>
+                  </select>
+                </div>
+
+                <div class="filter-item">
+                  <label for="priority-filter">Priority</label>
+                  <select id="priority-filter" aria-label="Filter by priority">
+                    <option value="All" selected>All</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+
+                <div class="filter-item">
+                  <label for="category-filter">Category</label>
+                  <select id="category-filter" aria-label="Filter by category">
+                    <option value="All" selected>All</option>
+                    <option value="Assignment">Assignment</option>
+                    <option value="Exam">Exam</option>
+                    <option value="Project">Project</option>
+                    <option value="Study">Study</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-header">
+              <h2>My Tasks</h2>
+              <label class="sort-label" for="sort-select">Sort</label>
+              <select id="sort-select" aria-label="Sort tasks">
+                <option value="dueDate-nearest">Due Date (Nearest First)</option>
+                <option value="dueDate-latest">Due Date (Latest First)</option>
+                <option value="priority-high">Priority (High to Low)</option>
+                <option value="priority-low">Priority (Low to High)</option>
+                <option value="recent">Recently Added</option>
+              </select>
+            </div>
+
+            <div id="task-list" class="task-list" aria-live="polite"></div>
+
+            <div id="empty-state" class="empty-state hidden" aria-live="polite">
+              <div class="empty-icon" aria-hidden="true">
+                <span>✓</span>
+              </div>
+              <p>No tasks found.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

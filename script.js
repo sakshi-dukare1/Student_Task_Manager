@@ -29,7 +29,7 @@ const priorityFilter = document.getElementById('priority-filter');
 const categoryFilter = document.getElementById('category-filter');
 const sortSelect = document.getElementById('sort-select');
 const themeToggle = document.getElementById('theme-toggle');
-const themeToggleLabel = document.getElementById('theme-toggle-label');
+const logoutBtn = document.getElementById('logout-btn');
 
 const totalCount = document.getElementById('total-count');
 const completedCount = document.getElementById('completed-count');
@@ -39,6 +39,13 @@ const overdueCount = document.getElementById('overdue-count');
 document.addEventListener('DOMContentLoaded', initApp);
 
 function initApp() {
+  const isLoggedIn = localStorage.getItem('student-task-manager.loggedIn') === 'true';
+
+  if (!isLoggedIn) {
+    window.location.href = 'login.html';
+    return;
+  }
+
   bindEvents();
   loadTheme();
   loadTasks();
@@ -75,6 +82,7 @@ function bindEvents() {
   });
 
   themeToggle.addEventListener('click', toggleDarkMode);
+  logoutBtn.addEventListener('click', logoutStudent);
 
   taskList.addEventListener('click', (event) => {
     const button = event.target.closest('button');
@@ -398,6 +406,12 @@ function toggleDarkMode() {
   updateThemeButton(currentTheme);
 }
 
+function logoutStudent() {
+  localStorage.removeItem('student-task-manager.loggedIn');
+  localStorage.removeItem('student-task-manager.studentName');
+  window.location.href = 'login.html';
+}
+
 function loadTheme() {
   const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
   document.body.dataset.theme = savedTheme;
@@ -406,8 +420,7 @@ function loadTheme() {
 
 function updateThemeButton(theme) {
   const isDark = theme === 'dark';
-  themeToggleLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-  themeToggle.innerHTML = `${isDark ? '<span aria-hidden="true">☀️</span>' : '<span aria-hidden="true">🌙</span>'}<span id="theme-toggle-label">${isDark ? 'Light Mode' : 'Dark Mode'}</span>`;
+  themeToggle.innerHTML = `${isDark ? '<span aria-hidden="true">☀️</span>' : '<span aria-hidden="true">🌙</span>'}<span>${isDark ? 'Light Mode' : 'Dark Mode'}</span>`;
 }
 
 function formatDate(dateString) {

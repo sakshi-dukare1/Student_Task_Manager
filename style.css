@@ -79,6 +79,12 @@ button {
   backdrop-filter: blur(8px);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 body[data-theme='dark'] .topbar {
   background: rgba(15, 23, 42, 0.6);
 }
@@ -116,13 +122,15 @@ body[data-theme='dark'] .topbar {
 .primary-btn,
 .secondary-btn,
 .task-action,
-.task-delete-btn {
+.task-delete-btn,
+.logout-btn {
   border: none;
   border-radius: 12px;
   transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
-.theme-toggle {
+.theme-toggle,
+.logout-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -132,6 +140,11 @@ body[data-theme='dark'] .topbar {
   color: var(--text);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-soft);
+}
+
+.logout-btn {
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--danger);
 }
 
 .theme-toggle:hover,

@@ -1,0 +1,22 @@
+{
+  "name": "student_task_manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "echo \"Build completed successfully\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakshi-dukare1/Student_Task_Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

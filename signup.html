@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Sign Up</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <div class="signup-page">
+      <div class="signup-card">
+        <div class="signup-header">
+          <div class="logo">ST</div>
+          <h1>Create Account</h1>
+          <p>Join us and start managing your tasks!</p>
+        </div>
+
+        <form id="signup-form" novalidate>
+          <div class="field-group">
+            <label for="full-name">Full Name</label>
+            <input id="full-name" name="fullName" type="text" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="field-group">
+            <label for="signup-email">Email</label>
+            <input id="signup-email" name="signupEmail" type="email" placeholder="student@example.com" required />
+          </div>
+
+          <div class="field-group">
+            <label for="signup-password">Password</label>
+            <input id="signup-password" name="signupPassword" type="password" placeholder="Create a password (min 6 characters)" required minlength="6" />
+          </div>
+
+          <div class="field-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input id="confirm-password" name="confirmPassword" type="password" placeholder="Confirm your password" required />
+          </div>
+
+          <div id="signup-message" class="signup-message" role="alert" aria-live="polite"></div>
+
+          <button type="submit" class="signup-btn">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html" class="auth-link">Login</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="signup.js"></script>
+  </body>
+</html>
